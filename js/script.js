@@ -33,12 +33,53 @@ const member5 = {
 //pusho all'interno del vettore tutti i membri
 teamMembers = pushMember();
 
+const teamContainer = document.querySelector('.team-container');
+
 //
 console.log('log array', teamMembers);
-
+/* - Prendendo come riferimento il layout di esempio presente nell’html, stampiamo tutte le card del nostro team.*/
 generateMembersTeamDOM();
 
-/* - Prendendo come riferimento il layout di esempio presente nell’html, stampiamo tutte le card del nostro team.*/
+/**
+- Utilizziamo poi gli input presenti nella pagina per permettere all’utente di aggiungere nuovi membri del team. 
+ */
+const addMemberButton = document.getElementById('addMemberButton');
+
+addMemberButton.addEventListener('click', function () {
+   
+   //aggiungo un nuovo membro
+   //1. salvo le info
+   //2. le stampo in DOM
+
+   const name = document.getElementById('name').value;
+   const role = document.getElementById('role').value;
+   const image = document.getElementById('image').value;
+
+   const newMember = {
+      name : name,
+      role : role,
+      photo : image
+   }
+   // console.log(newMember);
+
+   teamMembers.push(newMember);
+   
+   teamContainer.innerHTML = `
+      <div class="team-card">
+         <div class="card-image">
+            <img src="img/wayne-barnett-founder-ceo.jpg" alt="Wayne Barnett"/>
+         </div>
+         <div class="card-text">
+            <h3>Wayne Barnett</h3>
+            <p>Founder & CEO</p>
+         </div>
+      </div>
+   `;
+
+   generateMembersTeamDOM();
+
+});
+
 
 //////////FUNZIONI////////////
 
@@ -50,15 +91,16 @@ function pushMember () {
    teamMembers.push(member4);
    teamMembers.push(member5);
    
+   
    return teamMembers;
 }
 
 function generateMembersTeamDOM () {
 
+   // teamContainer.innerHTML = '';
+
    for (let i = 0; i < teamMembers.length; i++) {
       
-      const teamContainer = document.querySelector('.team-container');
-
       const member = getMember(i);
       
       teamContainer.append(member);
@@ -98,7 +140,7 @@ function getMember (index) {
    
    teamCard.append(cardText);
 
-   console.log('teamCard', teamCard)
+   // console.log('teamCard', teamCard)
 
    return teamCard;
 }
